@@ -1,0 +1,20 @@
+{
+    "name": "epjansson/flasher",
+    "type": "library",
+    "description": "Flash messaging for Anax-MVC",
+    "keywords": ["anax", "mvc", "flash", "message"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pontus Jansson",
+            "email": "pontus.jansson@outlook.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+    },
+    "autoload": {
+        "psr-4": { "Epj\\": "src/" }
+    }
+}
