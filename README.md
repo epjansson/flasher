@@ -1,5 +1,5 @@
 # flasher: Flash messaging for Anax-MVC
-Flasher is a PHP Class for handling flash messages in Anax-MVC
+Flasher is a PHP Class for handling flash messages in Anax-MVC.
 
 Requirements
 --
@@ -8,11 +8,12 @@ Requirements
 
 Install
 --
-1. Copy config file into app/config. Edit the config file to suit your preferences. Rename it to "flasher_conf.php"
+1. Copy "flasher_conf.php" in the config-folder to app/config. Edit the config file to suit your preferences.
 
 2. Add flasher as a service in Anax-MVC
 
 ```php
+// src/DI/CDIFactoryDefault.php
 $this->setShared('flasher', function() {
     $flasher = new \Epj\Flasher\Flasher();
     $flasher->setOptions(require ANAX_APP_PATH . 'config/flasher_conf.php');
@@ -26,7 +27,7 @@ $this->setShared('flasher', function() {
 
 ```php
 // In theme-file: at the top
-<?php $this->di->flasher->get(); ?>
+$this->di->flasher->get();
 
 // In a front-controller at the top
 $app->flasher->get();
@@ -35,8 +36,8 @@ $app->flasher->get();
 5. Add rendering of $flash_messages if it exists. Place it in the theme file where you want to render the flash message.
 
 ```php
-<?php if(isset($flash_message)) echo $flash_message?>
-<?php $this->views->render('flash_message')?>
+if(isset($flash_message)) echo $flash_message;
+$this->views->render('flash_message');
 ```
 
 6. Done!
