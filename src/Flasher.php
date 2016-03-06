@@ -19,6 +19,7 @@ class Flasher implements \Anax\DI\IInjectionAware
      */
     public function __call($name, $args)
     {
+        // Check if the called function exists in $this->types, if so; add the message to the session
         if (array_key_exists($name, $this->types) && is_string($args[0])) {
             $message = $args[0];
             $options = $this->types[$name];
@@ -72,8 +73,15 @@ class Flasher implements \Anax\DI\IInjectionAware
      */
     public function get()
     {
+        //Get the messages from the session
         $messages = $this->di->session->get("flasher");
 
+        // Return if there are no messages in the session
+        if (is_null($messages)) {
+            return;
+        }
+
+        // Add message(s) to a view.
         foreach ($messages as $message) {
             $this->display((object)$message);
         }

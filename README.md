@@ -10,7 +10,7 @@ Install
 --
 1. Move/copy "config/flasher_conf.php" to app/config. Edit the config file to suit your preferences.
 
-2. Move/copy files in /views-folder to app/views/flasher/.
+2. Move/copy files in "views"-folder to app/views/flasher.
 
 3. Add flasher as a service in Anax-MVC
 
@@ -33,10 +33,10 @@ $app->session();
 5. Add flasher->get() at the top of the theme file or the frontcontroller you want to display flash messages.
 
 ```php
-// In theme-file: at the top
+// In the theme-file...
 $this->di->flasher->get();
 
-// In a front-controller at the top
+// ...Or in a front-controller
 $app->flasher->get();
 ```
 
