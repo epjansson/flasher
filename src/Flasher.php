@@ -1,4 +1,4 @@
-<?php namespace Anax\Flasher;
+<?php namespace Epj;
 
 class Flasher implements \Anax\DI\IInjectionAware
 {
