@@ -5,10 +5,10 @@ class Flasher implements \Anax\DI\IInjectionAware
     use \Anax\DI\TInjectionAware;
 
     // Array to store all the flash message types with all its options.
-    private $types = [];
+    protected $types = [];
 
     // Array to store the usable templates.
-    private $templates = [];
+    protected $templates = [];
 
     /**
      * Handle the flash-message if it exists in the config.
@@ -23,10 +23,10 @@ class Flasher implements \Anax\DI\IInjectionAware
         if (array_key_exists($name, $this->types) && is_string($args[0])) {
             $message = $args[0];
             $options = $this->types[$name];
-            $view = $this->getTemplate($this->types[$name]);
+            $view = $this->getTemplateForFlashType($this->types[$name]);
             $this->add($message, $options, $view);
         } else {
-            die("<strong>{$name}</strong> is not a valid flash message type. Make sure to add it in the config file if you want to use it!");
+            throw new \Anax\Exception\ForbiddenException("You are trying to use a flash type that is not allowed.");
         }
     }
 
@@ -44,9 +44,20 @@ class Flasher implements \Anax\DI\IInjectionAware
             'with_icon' => null
         ];
 
-        $this->templates = !empty($options['template']) ? array_merge($templates, $options['template']) : false;
+        $typeDefault = [
+            "css_class" => "Flash",
+            "icon"      => null,
+            "title"     => null
+        ];
 
-        $this->types = !empty($options['types']) ? $options['types'] : false;
+        if (isset($options['types'])) {
+            foreach ($options['types'] as $key => $value) {
+                $merge = array_merge($typeDefault, $value);
+                $this->types[$key] = $merge;
+            }
+        }
+
+        $this->templates = !empty($options['templates']) ? array_merge($templates, $options['templates']) : $templates;
     }
 
     /**
@@ -58,7 +69,7 @@ class Flasher implements \Anax\DI\IInjectionAware
      *
      * @return void
      */
-    private function add($message, $options, $view)
+    protected function add($message, $options, $view)
     {
         $options['message'] = $message;
         $options['view'] = $view;
@@ -83,7 +94,7 @@ class Flasher implements \Anax\DI\IInjectionAware
 
         // Add message(s) to a view.
         foreach ($messages as $message) {
-            $this->display((object)$message);
+            $this->addView((object)$message);
         }
 
         unset($_SESSION['flasher']);
@@ -96,7 +107,7 @@ class Flasher implements \Anax\DI\IInjectionAware
      *
      * @return string
      */
-    private function getTemplate($options)
+    protected function getTemplateForFlashType($options)
     {
         if (is_null($this->templates)) {
             return 'flasher/default';
@@ -118,10 +129,30 @@ class Flasher implements \Anax\DI\IInjectionAware
      *
      * @return void
      */
-    private function display($message)
+    protected function addView($message)
     {
         $this->di->views->add($message->view, [
             "flash" => $message
         ], "flash_message");
+    }
+
+    /**
+     * Gets the value of types.
+     *
+     * @return mixed
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * Gets the value of templates.
+     *
+     * @return mixed
+     */
+    public function getTemplates()
+    {
+        return $this->templates;
     }
 }
