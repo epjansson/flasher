@@ -3,12 +3,12 @@ after_script:
   - "php ocular.phar code-coverage:upload --format=php-clover coverage.clover"
 before_script: 
   - "wget https://scrutinizer-ci.com/ocular.phar"
+  - "composer install"
 language: php
 php: 
-  - "5.4"
-  - "5.5"
-  - "5.6"
-  - "7.0"
+  - 5.6
+  - 5.5
+  - 5.4
   - hhvm
 script: 
   - "phpunit --bootstrap test/config.php --coverage-clover coverage.clover test"
