@@ -1,7 +1,8 @@
 --- 
 filter: 
   excluded_paths: 
-    - test/*
+    - tests/*
+    - vendor/*
 imports: 
   - php
 tools: 
