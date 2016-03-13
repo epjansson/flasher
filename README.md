@@ -1,4 +1,9 @@
-# flasher: Flash messaging for Anax-MVC
+flasher: Flash messaging for Anax-MVC
+=====
+[![Build Status](https://scrutinizer-ci.com/g/epjansson/flasher/badges/build.png?b=master)](https://scrutinizer-ci.com/g/epjansson/flasher/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/epjansson/flasher/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/epjansson/flasher/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/epjansson/flasher/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/epjansson/flasher/?branch=master)
+
 Flasher is a PHP Class for handling flash messages in Anax-MVC.
 
 Requirements
