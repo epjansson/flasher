@@ -17,10 +17,10 @@ Place the following code in src/DI/CDIFactoryDefault.php:
 
 ```php
 $this->setShared('flasher', function() {
-$flasher = new \Epj\Flasher();
-$flasher->setOptions(require ANAX_APP_PATH . 'config/flasher_conf.php');
-$flasher->setDI($this);
-return $flasher;
+    $flasher = new \Epj\Flasher();
+    $flasher->setOptions(require ANAX_APP_PATH . 'config/flasher_conf.php');
+    $flasher->setDI($this);
+    return $flasher;
 });
 ```
 
